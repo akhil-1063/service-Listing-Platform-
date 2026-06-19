@@ -7,7 +7,7 @@ Develop a basic web application that allows users to browse and search service p
 ## Technology Stack
 
 ### Frontend
-- React.js
+- Next.js (Preferred) / React.js
 - Tailwind CSS (Preferred)
 
 ### Backend
