@@ -18,7 +18,7 @@ app.use(express.json());
 
 //Mounting the service provider routes
 
-app.use("/api/servics", serviceProviderRoutes);
+app.use("/api/services", serviceProviderRoutes);
 
 
 app.get("/", (req: Request, res: Response) => {
