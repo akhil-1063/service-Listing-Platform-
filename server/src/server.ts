@@ -2,6 +2,7 @@ import express ,{type Request, type Response} from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { connectDB } from "./config/db.js";
+import serviceProviderRoutes from "./routes/ServiceRoutes.js";
 
 
 dotenv.config();
@@ -15,6 +16,9 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+//Mounting the service provider routes
+
+app.use("/api/servics", serviceProviderRoutes);
 
 
 app.get("/", (req: Request, res: Response) => {
