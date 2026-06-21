@@ -38,11 +38,26 @@ export const createServiceProvider = async (req : Request, res : Response) : Pro
 export const getAllServiceProviders  = async(req : Request, res : Response) : Promise<void> => {
 
     try {
-    const serviceProviders = await ServiceProvider.find().sort({ createdAt: -1 });
-    res.status(200).json({ message: "Service providers retrieved successfully", data: serviceProviders, count: serviceProviders.length });
-} catch (error) {
-    res.status(500).json({ message: "Error retrieving service providers", error });
-}
+
+        const {search, category, location} = req.query;
+
+        const query : any = {};
+
+        if (search) {
+            query.name = { $regex: search, $options: "i" };
+        }
+        if (category) {
+            query.category = category;
+        }
+        if (location) {
+            query.location = location;
+        }
+
+        const serviceProviders = await ServiceProvider.find(query).sort({ createdAt: -1 });
+        res.status(200).json({ message: "Service providers retrieved successfully", data: serviceProviders, count: serviceProviders.length });
+    } catch (error) {
+        res.status(500).json({ message: "Error retrieving service providers", error });
+    }
 };
 
 
