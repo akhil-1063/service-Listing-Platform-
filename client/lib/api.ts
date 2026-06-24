@@ -3,6 +3,8 @@ import { ServiceProvider } from "./types"
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api",
+
+  
 })
 
 export async function getServices(params?: {
@@ -11,7 +13,13 @@ export async function getServices(params?: {
   location?: string
 }): Promise<ServiceProvider[]> {
   try {
-    const { data } = await api.get("/services", { params })
+    const { data } = await api.get("/services", {
+      params: {
+        ...(params?.search && { search: params.search }),
+        ...(params?.category && params.category !== "All" && { category: params.category }),
+        ...(params?.location && params.location !== "All" && { location: params.location }),
+      }
+    })
     return data.data
   } catch (error) {
     console.error("getServices:", error)
