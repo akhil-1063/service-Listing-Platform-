@@ -16,6 +16,6 @@ export const ServiceProviderSchema = new Schema<IServiceProvider>({
     description: { type: String,required: [true, "Description is required" ] },
     location: { type: String, required: [true, "Location is required" ],index: true },
     imageUrl: { type: String, required: [true, "Image URL is required" ]}
-});
+}, { timestamps: true });
 
 export const ServiceProvider = model<IServiceProvider>('serviceprovider',ServiceProviderSchema);
