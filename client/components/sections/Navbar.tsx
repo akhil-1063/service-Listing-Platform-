@@ -1,33 +1,46 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+
+const navLinks = [
+  { label: "Home",     href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "About",    href: "/#about" },
+  { label: "Contact",  href: "/#contact" },
+]
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b  bg-background/80 backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-xl font-bold tracking-tight">
-          ServeLocal
-        </Link>
+    <nav className="border-b bg-background sticky top-0 z-50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-4">
 
-        <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
-          <Link href="/" className="text-muted-foreground transition-colors hover:text-foreground">
-            Home
+          {/* Brand */}
+          <Link href="/" className="text-lg font-bold tracking-tight shrink-0">
+            Doha Wellness
           </Link>
-          <Link href="/services" className="text-muted-foreground transition-colors hover:text-foreground">
-            Services
-          </Link>
-          <Link href="/#about" className="text-muted-foreground transition-colors hover:text-foreground">
-            About
-          </Link>
-          <Link href="/#contact" className="text-muted-foreground transition-colors hover:text-foreground">
-            Contact
-          </Link>
-        </nav>
 
-        <Button asChild size="sm">
-          <Link href="/services">Browse Services</Link>
-        </Button>
+          {/* Nav links */}
+          <div className="flex items-center gap-3 sm:gap-6 overflow-x-auto scrollbar-none">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Service Listing button */}
+          <Link
+            href="/list-business"
+            className="shrink-0 rounded-lg bg-primary px-3 py-1.5 text-sm font-medium text-primary-foreground hover:bg-primary/80 transition-colors whitespace-nowrap"
+          >
+            List Your Business
+          </Link>
+
+        </div>
       </div>
-    </header>
+    </nav>
   )
 }
