@@ -52,21 +52,47 @@ Run from the root directory:
 npm install --legacy-peer-deps
 ```
 
-### 4. Seed the Database
+### 4. Database Seeding & Test Credentials
+
 Populate your MongoDB database with pre-configured mock data (including professional accounts, beauty salons, services menus, and ratings):
 ```bash
 npx tsx seed.ts
 ```
 
-**Seeded Accounts for Testing:**
-- **Professional 1**: `elena@dohawellness.com` (Password: `password123`)
-- **Professional 2**: `ahmed@dohawellness.com` (Password: `password123`)
-- **Customer / Guest**: `guest@dohawellness.com` (Password: `password123`)
+### Seeded Accounts for Testing
+You can use these pre-created accounts to immediately test the platform features:
+- **Professional 1**: `elena@dohawellness.com` (Password: `password123`) — Manages *Bella Vista Hair & Beauty Lounge*
+- **Professional 2**: `ahmed@dohawellness.com` (Password: `password123`) — Manages *Serene Wellness & Massage Center*
+- **Customer / Guest**: `guest@dohawellness.com` (Password: `password123`) — Pre-loaded customer account
 
 ---
 
-## 💻 Running the ProjectNEXTAUTH_SECRET=your_secret   # openssl rand -base64 32
-JWT_SECRET=your_jwt_secret    # can be same value as NEXTAUTH_SECRET
+## ✨ Core Application Features & Testing Guide
+
+### 1. Customer Flow
+* **Sign Up / Sign In**: Navigate to `/auth/signup` and create a new account with the **Customer** role selected, or use `/auth/signin` with the seeded customer credentials.
+* **Explore Marketplace**: On `/explore`, search for wellness centers by keyword or location. Use the category pills at the top (**Massage**, **Haircut**, **Facial**, **Nails**, **Grooming**, **Spa**) to filter listings dynamically.
+* **Interactive Booking**: Open any salon page (e.g., `/salons/<id>`), click **Book Now** on any service item, select your desired date and time slot from the scheduling calendar, and confirm your booking.
+* **Write Reviews**: After booking, submit feedback and star ratings directly on the salon detail page. The platform automatically aggregates these reviews and updates the salon's overall score.
+* **Customer Dashboard**: Track all pending and confirmed appointments, view previous appointment history, and update your personal profile under `/dashboard/customer`.
+
+### 2. Professional / Provider Flow
+* **Registration**: Go to `/auth/signup` and register an account under the **Professional** role.
+* **Business Onboarding**: Upon first-time login, professionals are automatically routed to the onboarding wizard (`/onboarding`). Fill out your registry profile, including:
+  - **Business Identity**: Name, description, and cover photo URL.
+  - **Location Details**: Exact street address and city location.
+  - **Category**: Select your primary wellness industry.
+  - **Operational Hours**: Set weekly opening/closing times.
+  - **Services Menu**: Add individual service listings with specific names, durations (minutes), and price tags (QAR).
+* **Professional Dashboard**: Access your management hub under `/dashboard/professional` to:
+  - **Bookings Management**: Real-time overview of incoming booking requests. Confirm or decline bookings (triggers automated email updates).
+  - **My Business**: Live editor to add/remove services, adjust operational hours, or update address details.
+  - **Analytics Tab**: Check overall statistics including total revenue, booking status distribution, and total appointment counts.
+
+---
+
+## 💻 Running the Project
+
 To run the serverless full-stack app in development mode:
 ```bash
 npm run dev
@@ -122,5 +148,5 @@ Next.js can be deployed on Render as a Web Service (running node server).
 2. Select **Runtime** as `Node`.
 3. Set **Build Command** to: `npm run build`
 4. Set **Start Command** to: `npm run start`
-5. Configure the environment variables matching the `.env.local` keys under Render's Env Settings. Set `NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` to your Render Web Service URL (e.g. `https://doha-wellness.onrender.com`).
+5. Configure the environment variables matching the `.env.local` keys under Render's Env Settings. Set `NEXTAUTH_URL` and `NEXT_PUBLIC_APP_URL` to your Render Web Service URL (e.g. `https://service-listing-platform-1.onrender.com`).
 6. Deploy the service.
